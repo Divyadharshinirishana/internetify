@@ -63,7 +63,7 @@ describe("ContactSection", () => {
     expect(toast.success).not.toHaveBeenCalled();
   });
 
-  it("opens WhatsApp with trimmed form details when the form is valid", () => {
+  it("opens a prefilled email with trimmed form details when the form is valid", () => {
     render(<ContactSection />);
 
     fireEvent.change(screen.getByPlaceholderText("Your Name *"), {
@@ -85,14 +85,15 @@ describe("ContactSection", () => {
 
     expect(openSpy).toHaveBeenCalledTimes(1);
     const [url, target] = openSpy.mock.calls[0];
-    expect(target).toBe("_blank");
+    expect(target).toBe("_self");
     expect(decodeURIComponent(String(url))).toBe(
-      "https://wa.me/918667787621?text=Hi, I'm Ada Lovelace.\n" +
+      "mailto:internetifyio@gmail.com?subject=Project enquiry from Ada Lovelace&body=" +
+        "Hi, I'm Ada Lovelace.\n" +
         "Email: ada@example.com\n" +
         "Phone: 1234567890\n" +
         "Service: Website\n" +
         "Message: Build a portfolio",
     );
-    expect(toast.success).toHaveBeenCalledWith("Redirecting to WhatsApp...");
+    expect(toast.success).toHaveBeenCalledWith("Opening your email app...");
   });
 });

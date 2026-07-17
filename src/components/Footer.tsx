@@ -1,5 +1,5 @@
 import { Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { WHATSAPP_DISPLAY_NUMBER } from "@/lib/contact";
+import { CONTACT_EMAIL, WHATSAPP_DISPLAY_NUMBER } from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "#" },
@@ -83,7 +83,7 @@ const Footer = () => (
             </li>
             <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
               <Mail className="w-4 h-4 text-primary" />
-              internetifyio@gmail.com
+              {CONTACT_EMAIL}
             </li>
             <li className="flex items-start gap-2.5 text-muted-foreground text-sm font-body">
               <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />

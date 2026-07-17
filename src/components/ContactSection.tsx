@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { CONTACT_EMAIL } from "@/lib/contact";
 
 const services = ["Website", "App", "Ecommerce", "Other"];
 
@@ -16,11 +16,12 @@ const ContactSection = () => {
       toast.error("Please fill in all required fields.");
       return;
     }
-    const text = encodeURIComponent(
+    const subject = encodeURIComponent(`Project enquiry from ${name.trim()}`);
+    const body = encodeURIComponent(
       `Hi, I'm ${name.trim()}.\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service}\nMessage: ${message.trim()}`
     );
-    window.open(`${WHATSAPP_URL}?text=${text}`, "_blank");
-    toast.success("Redirecting to WhatsApp...");
+    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`, "_self");
+    toast.success("Opening your email app...");
   };
 
   const inputClass =
