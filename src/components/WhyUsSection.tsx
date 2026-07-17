@@ -10,20 +10,20 @@ const features = [
 
 const WhyUsSection = () => {
   return (
-    <section id="why-us" className="relative py-24 md:py-32 px-6">
+    <section id="why-us" className="relative scroll-mt-14 sm:scroll-mt-16 py-16 sm:py-20 md:py-28 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <p className="text-primary font-body text-sm tracking-[0.2em] uppercase mb-3">Our Strengths</p>
           <h2 className="section-heading">Why Choose Us</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
@@ -32,7 +32,7 @@ const WhyUsSection = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: i * 0.12 }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              className="glass-card p-8 group hover:shadow-lg hover:shadow-primary/10 transition-all duration-500"
+              className="glass-card p-6 sm:p-8 group hover:shadow-lg hover:shadow-primary/10 transition-all duration-500"
             >
               <motion.div
                 className={`w-12 h-12 rounded-xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-5 shadow-md`}

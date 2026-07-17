@@ -48,19 +48,12 @@ describe("Navbar", () => {
   });
 
   it.each([
-    ["internetify", "home"],
-    ["Why Us", "why-us"],
-    ["Contact", "contact"],
-  ])("smoothly scrolls %s to its section", (buttonName, sectionId) => {
-    const section = document.createElement("section");
-    section.id = sectionId;
-    const scrollIntoView = vi.fn();
-    Object.defineProperty(section, "scrollIntoView", { value: scrollIntoView });
-    document.body.appendChild(section);
-
+    ["Go to home", "#home"],
+    ["Why Us", "#why-us"],
+    ["Contact", "#contact"],
+  ])("links %s to its section", (linkName, href) => {
     render(<Navbar />);
-    fireEvent.click(screen.getByRole("button", { name: buttonName }));
 
-    expect(scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth" });
+    expect(screen.getByRole("link", { name: linkName })).toHaveAttribute("href", href);
   });
 });

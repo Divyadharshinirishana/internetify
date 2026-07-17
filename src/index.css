@@ -87,13 +87,13 @@ html {
   }
   .section-heading {
     font-family: 'Space Grotesk', sans-serif;
-    @apply text-4xl md:text-5xl font-bold tracking-tight text-foreground;
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground;
   }
 }
 
 @layer utilities {
   .whatsapp-float {
-    @apply fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300;
+    @apply fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300;
     background: #25D366;
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
   }

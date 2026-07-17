@@ -16,9 +16,9 @@ const services = [
 ];
 
 const Footer = () => (
-  <footer className="relative border-t border-border/30 pt-16 pb-8 px-6 overflow-hidden">
+  <footer className="relative border-t border-border/30 pt-12 sm:pt-16 pb-8 px-4 sm:px-6 overflow-hidden">
     <div className="max-w-6xl mx-auto relative z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-14">
         {/* Brand */}
         <div className="lg:col-span-1">
           <p className="font-display text-2xl font-bold text-gradient inline-block mb-3">internetify.io</p>
@@ -94,7 +94,7 @@ const Footer = () => (
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-t border-border pt-6 flex flex-col md:flex-row items-center text-center md:text-left justify-between gap-4">
         <p className="text-muted-foreground/60 text-xs font-body">
           &copy; {new Date().getFullYear()} internetify.io — All rights reserved.
         </p>

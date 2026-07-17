@@ -28,16 +28,16 @@ const Counter = ({ target, suffix }: { target: number; suffix: string }) => {
   }, [isInView, target]);
 
   return (
-    <span ref={ref} className="text-gradient font-display text-5xl md:text-6xl font-bold">
+    <span ref={ref} className="text-gradient font-display text-4xl sm:text-5xl md:text-6xl font-bold">
       {count}{suffix}
     </span>
   );
 };
 
 const StatsSection = () => (
-  <section id="stats" className="relative py-20 px-6 overflow-hidden">
+  <section id="stats" className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(217_91%_60%_/_0.04)_0%,_transparent_70%)]" />
-    <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+    <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
       {stats.map((stat, i) => (
         <motion.div
           key={stat.label}

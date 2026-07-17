@@ -10,11 +10,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleClick = (href: string) => {
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -26,27 +21,28 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        <button
-          onClick={() => handleClick("#home")}
-          className="font-display text-xl font-bold tracking-tight"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 sm:h-16">
+        <a
+          href="#home"
+          className="font-display text-lg sm:text-xl font-bold tracking-tight"
+          aria-label="Go to home"
         >
           <span className="text-gradient">internetify</span>
-        </button>
+        </a>
 
         <div className="flex items-center gap-1">
-          <button
-            onClick={() => handleClick("#why-us")}
-            className="px-4 py-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
+          <a
+            href="#why-us"
+            className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
           >
             Why Us
-          </button>
-          <button
-            onClick={() => handleClick("#contact")}
-            className="px-4 py-2 text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
+          </a>
+          <a
+            href="#contact"
+            className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-body text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary/50"
           >
             Contact
-          </button>
+          </a>
         </div>
       </div>
     </motion.nav>
