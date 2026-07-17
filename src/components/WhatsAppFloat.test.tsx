@@ -5,11 +5,12 @@ import WhatsAppFloat from "./WhatsAppFloat";
 
 describe("WhatsAppFloat", () => {
   it("opens the updated WhatsApp number", () => {
-    render(<WhatsAppFloat />);
+    const { container } = render(<WhatsAppFloat />);
 
     expect(screen.getByRole("link", { name: "Chat on WhatsApp" })).toHaveAttribute(
       "href",
       "https://wa.me/918667787621",
     );
+    expect(container.querySelector('svg[data-icon="whatsapp"]')).toBeInTheDocument();
   });
 });
