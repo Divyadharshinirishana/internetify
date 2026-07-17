@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import type { FormHTMLAttributes, HTMLAttributes } from "react";
 import { toast } from "sonner";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -42,15 +42,13 @@ vi.mock("sonner", () => ({
 }));
 
 describe("ContactSection", () => {
-  let openSpy: ReturnType<typeof vi.spyOn>;
-
   beforeEach(() => {
-    openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    vi.stubGlobal("fetch", vi.fn());
   });
 
   afterEach(() => {
     vi.clearAllMocks();
-    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("shows an error when required fields are missing", () => {
@@ -59,11 +57,12 @@ describe("ContactSection", () => {
     fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
 
     expect(toast.error).toHaveBeenCalledWith("Please fill in all required fields.");
-    expect(openSpy).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
     expect(toast.success).not.toHaveBeenCalled();
   });
 
-  it("opens a prefilled email with trimmed form details when the form is valid", () => {
+  it("sends trimmed form details directly to the contact email", async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, { status: 200 }));
     render(<ContactSection />);
 
     fireEvent.change(screen.getByPlaceholderText("Your Name *"), {
@@ -83,17 +82,46 @@ describe("ContactSection", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
 
-    expect(openSpy).toHaveBeenCalledTimes(1);
-    const [url, target] = openSpy.mock.calls[0];
-    expect(target).toBe("_self");
-    expect(decodeURIComponent(String(url))).toBe(
-      "mailto:internetifyio@gmail.com?subject=Project enquiry from Ada Lovelace&body=" +
-        "Hi, I'm Ada Lovelace.\n" +
-        "Email: ada@example.com\n" +
-        "Phone: 1234567890\n" +
-        "Service: Website\n" +
-        "Message: Build a portfolio",
-    );
-    expect(toast.success).toHaveBeenCalledWith("Opening your email app...");
+    expect(screen.getByRole("button", { name: "Sending..." })).toBeDisabled();
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith(
+        "https://formsubmit.co/ajax/internetifyio@gmail.com",
+        expect.objectContaining({
+          method: "POST",
+          body: JSON.stringify({
+            _subject: "Project enquiry from Ada Lovelace",
+            _template: "table",
+            name: "Ada Lovelace",
+            email: "ada@example.com",
+            phone: "1234567890",
+            service: "Website",
+            message: "Build a portfolio",
+          }),
+        }),
+      );
+    });
+    expect(toast.success).toHaveBeenCalledWith("Message sent successfully.");
+    expect(screen.getByPlaceholderText("Your Name *")).toHaveValue("");
+  });
+
+  it("shows an error when direct email delivery fails", async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(null, { status: 500 }));
+    render(<ContactSection />);
+
+    fireEvent.change(screen.getByPlaceholderText("Your Name *"), {
+      target: { value: "Ada" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Email Address *"), {
+      target: { value: "ada@example.com" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("Tell us about your project *"), {
+      target: { value: "Build a portfolio" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalledWith("Unable to send message. Please try again.");
+    });
+    expect(screen.getByRole("button", { name: "Send Message" })).toBeEnabled();
   });
 });

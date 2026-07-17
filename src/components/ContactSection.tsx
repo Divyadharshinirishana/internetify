@@ -8,20 +8,46 @@ const services = ["Website", "App", "Ecommerce", "Other"];
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { name, email, phone, service, message } = form;
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast.error("Please fill in all required fields.");
       return;
     }
-    const subject = encodeURIComponent(`Project enquiry from ${name.trim()}`);
-    const body = encodeURIComponent(
-      `Hi, I'm ${name.trim()}.\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service}\nMessage: ${message.trim()}`
-    );
-    window.open(`mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`, "_self");
-    toast.success("Opening your email app...");
+
+    setSubmitting(true);
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `Project enquiry from ${name.trim()}`,
+          _template: "table",
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          service,
+          message: message.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Email submission failed");
+      }
+
+      setForm({ name: "", email: "", phone: "", service: "", message: "" });
+      toast.success("Message sent successfully.");
+    } catch {
+      toast.error("Unable to send message. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -93,9 +119,13 @@ const ContactSection = () => {
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             maxLength={1000}
           />
-          <button type="submit" className="glow-button w-full flex items-center justify-center gap-2 text-lg font-display">
+          <button
+            type="submit"
+            disabled={submitting}
+            className="glow-button w-full flex items-center justify-center gap-2 text-lg font-display disabled:cursor-not-allowed disabled:opacity-60"
+          >
             <Send className="w-5 h-5" />
-            Send Message
+            {submitting ? "Sending..." : "Send Message"}
           </button>
         </motion.form>
       </div>
