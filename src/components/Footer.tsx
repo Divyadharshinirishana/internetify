@@ -1,5 +1,18 @@
-import { Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { CONTACT_EMAIL, WHATSAPP_DISPLAY_NUMBER } from "@/lib/contact";
+import {
+  ArrowUpRight,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
+import {
+  CONTACT_EMAIL,
+  CONTACT_EMAIL_URL,
+  CONTACT_PHONE_URL,
+  WHATSAPP_DISPLAY_NUMBER,
+} from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "#" },
@@ -13,6 +26,17 @@ const services = [
   "Mobile Apps",
   "E-Commerce",
   "UI/UX Design",
+  "Digital Marketing",
+];
+
+const socialLinks = [
+  { label: "Instagram", icon: Instagram, href: "https://instagram.com" },
+  { label: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
+  {
+    label: "Facebook",
+    icon: Facebook,
+    href: "https://www.facebook.com/share/1DGRcPS8wx/",
+  },
 ];
 
 const Footer = () => (
@@ -26,15 +50,13 @@ const Footer = () => (
             Crafting digital experiences that push boundaries and drive results.
           </p>
           <div className="flex items-center gap-3">
-            {[
-              { icon: Instagram, href: "https://instagram.com" },
-              { icon: Linkedin, href: "https://linkedin.com" },
-            ].map(({ icon: Icon, href }) => (
+            {socialLinks.map(({ label, icon: Icon, href }) => (
               <a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={label}
                 className="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-300"
               >
                 <Icon className="w-4 h-4" />
@@ -77,13 +99,23 @@ const Footer = () => (
         <div>
           <h4 className="font-display text-sm font-semibold text-foreground tracking-wide uppercase mb-4">Get In Touch</h4>
           <ul className="space-y-3">
-            <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
-              <Phone className="w-4 h-4 text-primary" />
-              {WHATSAPP_DISPLAY_NUMBER}
+            <li>
+              <a
+                href={CONTACT_PHONE_URL}
+                className="flex items-center gap-2.5 text-muted-foreground text-sm font-body hover:text-primary transition-colors"
+              >
+                <Phone className="w-4 h-4 text-primary" />
+                {WHATSAPP_DISPLAY_NUMBER}
+              </a>
             </li>
-            <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
-              <Mail className="w-4 h-4 text-primary" />
-              {CONTACT_EMAIL}
+            <li>
+              <a
+                href={CONTACT_EMAIL_URL}
+                className="flex items-center gap-2.5 text-muted-foreground text-sm font-body hover:text-primary transition-colors"
+              >
+                <Mail className="w-4 h-4 text-primary" />
+                {CONTACT_EMAIL}
+              </a>
             </li>
             <li className="flex items-start gap-2.5 text-muted-foreground text-sm font-body">
               <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
