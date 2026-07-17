@@ -87,7 +87,7 @@ describe("ContactSection", () => {
     const [url, target] = openSpy.mock.calls[0];
     expect(target).toBe("_blank");
     expect(decodeURIComponent(String(url))).toBe(
-      "https://wa.me/919940982795?text=Hi, I'm Ada Lovelace.\n" +
+      "https://wa.me/918667787621?text=Hi, I'm Ada Lovelace.\n" +
         "Email: ada@example.com\n" +
         "Phone: 1234567890\n" +
         "Service: Website\n" +

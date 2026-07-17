@@ -1,8 +1,9 @@
 import { MessageCircle } from "lucide-react";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 const WhatsAppFloat = () => (
   <a
-    href="https://wa.me/919940982795"
+    href={WHATSAPP_URL}
     target="_blank"
     rel="noopener noreferrer"
     className="whatsapp-float"

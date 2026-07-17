@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { WHATSAPP_URL } from "@/lib/contact";
 import StarField from "./StarField";
 
 const HeroSection = () => {
@@ -54,7 +55,7 @@ const HeroSection = () => {
             Get Started
           </a>
           <a
-            href="https://wa.me/919940982795"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="glass-card px-8 py-3 text-lg font-display font-semibold text-foreground hover:bg-card/60 transition-all duration-300 text-center"

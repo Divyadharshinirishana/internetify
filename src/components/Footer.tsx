@@ -1,4 +1,5 @@
 import { Instagram, Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { WHATSAPP_DISPLAY_NUMBER } from "@/lib/contact";
 
 const quickLinks = [
   { label: "Home", href: "#" },
@@ -78,7 +79,7 @@ const Footer = () => (
           <ul className="space-y-3">
             <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
               <Phone className="w-4 h-4 text-primary" />
-              +91 9940982795
+              {WHATSAPP_DISPLAY_NUMBER}
             </li>
             <li className="flex items-center gap-2.5 text-muted-foreground text-sm font-body">
               <Mail className="w-4 h-4 text-primary" />

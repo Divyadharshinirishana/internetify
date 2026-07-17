@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 const services = ["Website", "App", "Ecommerce", "Other"];
 
@@ -18,7 +19,7 @@ const ContactSection = () => {
     const text = encodeURIComponent(
       `Hi, I'm ${name.trim()}.\nEmail: ${email.trim()}\nPhone: ${phone.trim()}\nService: ${service}\nMessage: ${message.trim()}`
     );
-    window.open(`https://wa.me/919940982795?text=${text}`, "_blank");
+    window.open(`${WHATSAPP_URL}?text=${text}`, "_blank");
     toast.success("Redirecting to WhatsApp...");
   };
 
