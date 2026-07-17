@@ -14,7 +14,13 @@ describe("Footer", () => {
     );
     expect(
       screen.getByRole("link", { name: "internetifyio@gmail.com" }),
-    ).toHaveAttribute("href", "mailto:internetifyio@gmail.com");
+    ).toHaveAttribute(
+      "href",
+      "https://mail.google.com/mail/?view=cm&fs=1&to=internetifyio@gmail.com",
+    );
+    expect(
+      screen.getByRole("link", { name: "internetifyio@gmail.com" }),
+    ).toHaveAttribute("target", "_blank");
   });
 
   it("links to the provided Facebook page with the other social profiles", () => {

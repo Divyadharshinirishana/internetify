@@ -111,6 +111,8 @@ const Footer = () => (
             <li>
               <a
                 href={CONTACT_EMAIL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2.5 text-muted-foreground text-sm font-body hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4 text-primary" />
